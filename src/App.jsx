@@ -78,8 +78,35 @@ const Preloader = () => (
   </motion.div>
 );
 
+const LandingPage = ({ onEnter }) => (
+  <motion.div 
+    className="landing-page"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 1 }}
+  >
+    <motion.div 
+      className="landing-content"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onEnter}
+    >
+      <img src="/a0.jpeg" alt="Click to open" className="landing-image" />
+      <motion.p 
+        className="landing-text"
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        Click to open a special surprise... ✨
+      </motion.p>
+    </motion.div>
+  </motion.div>
+);
+
 function App() {
   const [loading, setLoading] = useState(true);
+  const [showLanding, setShowLanding] = useState(true);
 
   useEffect(() => {
     // Simulate loading time for the preloader to be visible
@@ -93,6 +120,8 @@ function App() {
     <>
       {loading ? (
         <Preloader />
+      ) : showLanding ? (
+        <LandingPage onEnter={() => setShowLanding(false)} />
       ) : (
         <div className="app-container">
           <FloatingHearts />
@@ -109,7 +138,7 @@ function App() {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
             >
-              Happy 26th Birthday!
+              Happy Birthday!
             </motion.h1>
             
             <motion.h2 
@@ -175,7 +204,7 @@ function App() {
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
           >
-            <h3>Cheers to 26 amazing years! 🥂</h3>
+            <h3>Cheers to amazing years! 🥂</h3>
             <p>Keep shining, keep smiling, and never stop being the wonderful friend you are. Have the sweetest birthday ever! 🍰💖✨</p>
           </motion.div>
         </div>
